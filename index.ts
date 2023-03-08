@@ -1,9 +1,14 @@
+import { Task } from "./src/entities/Task";
 import express, { Express, Request, Response } from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 import { DataSource } from "typeorm";
 
 //Instrantiate express app
 const app: Express = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 
 //Get environment variables
 dotenv.config();
@@ -17,7 +22,7 @@ export const AppDataSource = new DataSource({
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DB,
   synchronize: true, //Since it's a small project, it's ok to set it to true
-  entities: [],
+  entities: [Task],
 });
 
 // define server port
