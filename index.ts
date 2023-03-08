@@ -1,8 +1,9 @@
 import { Task } from "./src/entities/Task";
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { DataSource } from "typeorm";
+import { router } from "./src/routes/TaskRoute";
 
 //Instrantiate express app
 const app: Express = express();
@@ -28,10 +29,8 @@ export const AppDataSource = new DataSource({
 // define server port
 const port = process.env.PORT;
 
-// Create a default route
-app.get("/", (req: Request, res: Response) => {
-  res.send("Server starts on 3200 and DB starts on 3307");
-});
+const routes = router(express);
+app.use("/", routes);
 
 // Once DB is connected, start listening to the requests on the default port
 AppDataSource.initialize()
