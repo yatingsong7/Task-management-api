@@ -16,9 +16,9 @@ export class Task {
   @Column()
   date: string;
 
-  @Column({ default: STATUS.todo })
+  @Column()
   status: STATUS;
 
-  @Column({ default: PRIORITY.low })
+  @Column()
   priority: PRIORITY;
 }

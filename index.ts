@@ -3,9 +3,9 @@ import express, { Express } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { DataSource } from "typeorm";
-import { router } from "./src/routes/TaskRoute";
+import { TaskRouter } from "./src/routes/TaskRoute";
 
-//Instrantiate express app
+//Instantiate express app
 const app: Express = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -29,7 +29,7 @@ export const AppDataSource = new DataSource({
 // define server port
 const port = process.env.PORT;
 
-const routes = router(express);
+const routes = TaskRouter(express);
 app.use("/", routes);
 
 // Once DB is connected, start listening to the requests on the default port
