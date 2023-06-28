@@ -2,9 +2,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Express } from "express";
 import { DataSource } from "typeorm";
+import Memo from "./src/entities/Memo";
 import Note from "./src/entities/Note";
 import Task from "./src/entities/Task";
-import { Todo } from "./src/entities/Todo";
+import Todo from "./src/entities/Todo";
 import { NoteRouter } from "./src/routes/NoteRoute";
 import { TaskRouter } from "./src/routes/TaskRoute";
 import { TodoRouter } from "./src/routes/TodoRoute";
@@ -27,7 +28,7 @@ export const AppDataSource = new DataSource({
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DB,
   synchronize: true, //Since it's a small project, it's ok to set it to true
-  entities: [Task, Todo, Note],
+  entities: [Task, Todo, Note, Memo],
 });
 
 // define server port

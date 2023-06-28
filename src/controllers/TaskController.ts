@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator/src/validation-result";
-import { In } from "typeorm";
 import { AppDataSource } from "../../index";
 import Task from "../entities/Task";
 
@@ -29,23 +28,23 @@ class TaskController {
           todos: { checked: "asc", position: "ASC" },
         },
       });
-      const results = await AppDataSource.getRepository(Task)
-        .createQueryBuilder("task")
-        .select()
-        .leftJoinAndSelect("task.preTasks", "mainTasks")
-        .andWhere("task.id=:mainTaskId", { mainTaskId: Number(req.params.id) })
-        .getOne();
-      const preTasksIds: number[] = results ? (results.preTasks ? results.preTasks.map((r) => r.id) : []) : [];
+      // const results = await AppDataSource.getRepository(Task)
+      //   .createQueryBuilder("task")
+      //   .select()
+      //   .leftJoinAndSelect("task.preTasks", "mainTasks")
+      //   .andWhere("task.id=:mainTaskId", { mainTaskId: Number(req.params.id) })
+      //   .getOne();
+      // const preTasksIds: number[] = results ? (results.preTasks ? results.preTasks.map((r) => r.id) : []) : [];
 
-      let preTasks = await AppDataSource.getRepository(Task).find({
-        where: { id: In(preTasksIds) },
-        relations: ["todos"],
-        order: {
-          date: "desc",
-          todos: { checked: "asc", position: "ASC" },
-        },
-      });
-      if (task) task.preTasks = preTasks;
+      // let preTasks = await AppDataSource.getRepository(Task).find({
+      //   where: { id: In(preTasksIds) },
+      //   relations: ["todos"],
+      //   order: {
+      //     date: "desc",
+      //     todos: { checked: "asc", position: "ASC" },
+      //   },
+      // });
+      // if (task) task.preTasks = preTasks;
       return res.status(200).send(task);
     } catch (e) {
       return res.status(500).send(e);

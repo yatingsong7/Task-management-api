@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "t
 import Task from "./Task";
 
 @Entity()
-export class Todo {
+export default class Todo {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
@@ -15,8 +15,8 @@ export class Todo {
   @Column({ nullable: true })
   position: number;
 
-  @Column({ default: 0 })
-  checked: number;
+  @Column({ default: false })
+  checked: boolean;
 
   @ManyToOne(() => Task, (e) => e.todos, { onDelete: "CASCADE" })
   @JoinColumn({ name: "taskId", referencedColumnName: "id" })

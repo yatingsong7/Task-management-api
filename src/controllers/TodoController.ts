@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator/src/validation-result";
 import { AppDataSource } from "../../index";
-import { Todo } from "./../entities/Todo";
+import Todo from "./../entities/Todo";
 
 class TodoController {
   public async getAll(req: Request, res: Response): Promise<Response> {
